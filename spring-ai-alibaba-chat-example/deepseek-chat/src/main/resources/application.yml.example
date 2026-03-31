@@ -1,0 +1,35 @@
+# Spring AI Alibaba DeepSeek Chat Example - Application Configuration
+# Copy this file to application.yml and fill in your API keys
+
+server:
+  port: 10001
+
+spring:
+  application:
+    name: spring-ai-alibaba-deepseek-chat-model-example
+
+  ai:
+    deepseek:
+      # 替换为你自己的 DeepSeek API Key
+      # 获取地址：https://platform.deepseek.com/
+      api-key: ${AI_DEEPSEEK_API_KEY:your-deepseek-api-key}
+      base-url: "https://api.deepseek.com"
+      chat:
+        options:
+          model: deepseek-chat
+      embedding:
+        enabled: false
+
+    mcp:
+      client:
+        stdio:
+          # MCP Servers 配置文件路径
+          servers-configuration: classpath:/mcp-servers-config.json
+        toolcallback:
+          # 开启 MCP 客户端的工具回调功能
+          enabled: true
+
+# 高德地图 API Key 配置
+# 在 mcp-servers-config.json 中通过环境变量引用
+# 获取地址：https://lbs.amap.com/api/webservice/guide/create-project/get-key
+# 环境变量：AMAP_MAPS_API_KEY=your-amap-api-key

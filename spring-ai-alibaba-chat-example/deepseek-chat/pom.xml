@@ -50,6 +50,12 @@
             <artifactId>spring-ai-alibaba-agent-framework</artifactId>
         </dependency>
 
+        <!-- Spring AI MCP Client for WebFlux -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-client-webflux</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
