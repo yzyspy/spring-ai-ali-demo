@@ -4,7 +4,8 @@ server:
 spring:
   application:
     name: spring-ai-alibaba-deepseek-chat-model-example
-
+  main:
+    allow-bean-definition-overriding: true
   ai:
     deepseek:
       api-key: ${AI_DEEPSEEK_API_KEY}

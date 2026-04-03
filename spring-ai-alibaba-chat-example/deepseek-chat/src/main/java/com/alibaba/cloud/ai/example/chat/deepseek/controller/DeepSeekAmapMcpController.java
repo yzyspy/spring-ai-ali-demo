@@ -10,6 +10,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.function.FunctionToolCallback;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,8 @@ public class DeepSeekAmapMcpController {
      * 构造函数注入 ChatModel 并构建 ReactAgent
      * 通过 ToolCallbackProvider 自动注册 MCP 工具
      */
-    public DeepSeekAmapMcpController(ChatModel chatModel, ToolCallbackProvider toolCallbackProvider) {
+    public DeepSeekAmapMcpController(ChatModel chatModel,
+                                     @Qualifier("amapToolCallbackProvider") ToolCallbackProvider toolCallbackProvider) {
         this.deepSeekChatModel = chatModel;
         
         // 从 MCP Client 获取高德地图工具
@@ -59,13 +61,16 @@ public class DeepSeekAmapMcpController {
     }
 
     /**
+     * 在浏览器输入这个地址
+     * http://localhost:10001/agent/amap/search?query=北京市的医院
+     *
      * 地点搜索端点
      * 
      * @param query 搜索关键词，如"北京市的医院"、"上海中心大厦"
      * @return DeepSeek 模型调用高德地图 MCP 后的响应文本
      */
     @GetMapping("/search")
-    public ResponseEntity<String> searchLocation(@RequestParam String query) {
+    public ResponseEntity<String> searchLocation(@RequestParam(name = "query") String query) {
         try {
             log.info("Searching location: {}", query);
             String prompt = "请帮我查询：" + query;
